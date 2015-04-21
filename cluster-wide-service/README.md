@@ -18,3 +18,19 @@ Push to repository
 docker push mdevilliers/test-go-web-image
 ```
 
+Run in kubernentes
+
+```
+kubectl create -f cluster-wide-controller.yaml
+kubectl create -f cluster-wide-service.yaml
+```
+
+Inspect
+
+```
+kubectl cluster-info
+
+Kubernetes master is running at http://localhost:8080
+cluster-wide-service is running at http://localhost:8080/api/v1beta1/proxy/services/monitoring-c-w-svc/ (note the trailing slash)
+
+```
