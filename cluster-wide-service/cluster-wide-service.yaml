@@ -1,0 +1,14 @@
+apiVersion: v1beta3
+kind: Service
+metadata: 
+  labels: 
+    name: cluster-wide-service
+    kubernetes.io/cluster-service: "true"
+  name: monitoring-cluster-wide-service
+spec: 
+  ports:
+    - port: 8080
+      targetPort: 8085
+  selector: 
+    name: cluster-wide-service
+    kubernetes.io/cluster-service: "true"

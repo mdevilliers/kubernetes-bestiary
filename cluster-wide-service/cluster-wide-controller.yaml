@@ -1,0 +1,21 @@
+apiVersion: v1beta3
+kind: ReplicationController
+metadata: 
+  labels: 
+    name: cluster-wide-service
+    kubernetes.io/cluster-service: "true"
+  name: cluster-wide-service-controller
+spec: 
+  replicas: 1
+  selector: 
+    name: cluster-wide-service
+  template: 
+    metadata: 
+      labels: 
+        name: cluster-wide-service
+        kubernetes.io/cluster-service: "true"
+    spec: 
+      containers: 
+        containers:
+      - name: cluster-wide-service
+        image: mdevilliers/test-go-web-image
