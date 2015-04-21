@@ -8,7 +8,7 @@ metadata:
 spec: 
   ports:
     - port: 8080
-      targetPort: 8085
+      targetPort: 8080
   selector: 
     name: cluster-wide-service
     kubernetes.io/cluster-service: "true"
