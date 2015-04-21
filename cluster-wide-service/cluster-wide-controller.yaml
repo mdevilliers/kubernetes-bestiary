@@ -16,6 +16,5 @@ spec:
         kubernetes.io/cluster-service: "true"
     spec: 
       containers: 
-        containers:
-      - name: cluster-wide-service
-        image: mdevilliers/test-go-web-image
+        - name: cluster-wide-service
+          image: mdevilliers/test-go-web-image
