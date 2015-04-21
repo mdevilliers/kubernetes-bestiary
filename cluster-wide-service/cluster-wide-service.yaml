@@ -4,7 +4,7 @@ metadata:
   labels: 
     name: cluster-wide-service
     kubernetes.io/cluster-service: "true"
-  name: monitoring-cluster-wide-service
+  name: monitoring-c-w-svc
 spec: 
   ports:
     - port: 8080
