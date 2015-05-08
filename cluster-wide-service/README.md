@@ -34,3 +34,7 @@ Kubernetes master is running at http://localhost:8080
 cluster-wide-service is running at http://localhost:8080/api/v1beta1/proxy/services/monitoring-c-w-svc/ (note the trailing slash)
 
 ```
+
+Version 16.2 Info - service really running at :-
+
+http://172.17.8.101:8080/api/v1beta3/proxy/namespaces/default/services/monitoring-c-w-svc/
