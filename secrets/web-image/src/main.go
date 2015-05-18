@@ -1,49 +1,51 @@
 package main
- 
-import(
-    "encoding/base64"
+
+import (
+	"encoding/base64"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"runtime"
+	"os"
 )
- 
-func indexHandler( w http.ResponseWriter, r *http.Request){
 
-	path := "/etc/foo"
-
-	usernameEncoded, err := ioutil.ReadFile(path + "/username")
-
-	if err != nil {
-		fmt.Fprintf(w, "error reading username : %s", err.Error())
-		return
-	}
-
-	username, _ := base64.StdEncoding.DecodeString(string(usernameEncoded))
-
-	passwordEncoded , err := ioutil.ReadFile(path + "/password")
-
-	if err != nil {
-		fmt.Fprintf(w, "error reading password : %s", err.Error())
-		return
-	}
-
-	password, _ := base64.StdEncoding.DecodeString(string(passwordEncoded))
-
-	otherEncoded, err := ioutil.ReadFile(path + "/another-secret")
-
-	if err != nil {
-		fmt.Fprintf(w, "error reading another-secret : %s", err.Error())
-		return
-	}
-
-	other, _ := base64.StdEncoding.DecodeString(string(otherEncoded))
-
-	fmt.Fprintf(w, "ssh!, I'm running on %s. My secrets are username : %s, password : %s, other : %s", 
-		runtime.GOOS,string(username), string(password), string(other))
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "<html><body>")
+	listAllEnvironmentalVars(w)
+	loadSecret(w, "username")
+	loadSecret(w, "password")
+	loadSecret(w, "another-secret")
+	fmt.Fprint(w, "</body><html>")
 }
 
-func main(){
+func main() {
+
 	http.HandleFunc("/", indexHandler)
-	http.ListenAndServe(":8080",nil)
+	http.ListenAndServe(":8080", nil)
+}
+
+func loadSecret(w http.ResponseWriter, key string) {
+
+	path := "/etc/foo/"
+
+	encoded, err := ioutil.ReadFile(path + key)
+
+	if err != nil {
+		fmt.Fprintf(w, "error reading %s : %s", key, err.Error())
+		return
+	}
+	unencoded, err := base64.StdEncoding.DecodeString(string(encoded))
+
+	if err != nil {
+		fmt.Fprintf(w, "error reading %s : %s", key, err.Error())
+		return
+	}
+
+	fmt.Fprintf(w, "<br/>ssh!, Key : %s, Secret : %s from : %s", key, unencoded, string(encoded))
+
+}
+
+func listAllEnvironmentalVars(w http.ResponseWriter) {
+	for _, e := range os.Environ() {
+		fmt.Fprintf(w, "%s<br/>", e)
+	}
 }
