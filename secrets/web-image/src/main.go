@@ -36,7 +36,7 @@ func loadSecret(w http.ResponseWriter, key string) {
 	unencoded, err := base64.StdEncoding.DecodeString(string(encoded))
 
 	if err != nil {
-		fmt.Fprintf(w, "error reading %s : %s", key, err.Error())
+		fmt.Fprintf(w, "error decoding %s : %s", string(encoded), err.Error())
 		return
 	}
 
