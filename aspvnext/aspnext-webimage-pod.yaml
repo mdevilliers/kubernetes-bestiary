@@ -7,4 +7,4 @@ desiredState:
     id: aspvnext-image
     containers:
       - name: aspvnext-image
-        image: mdevilliers/aspvnext-image
+        image: mdevilliers/aspvnext-image:latest
