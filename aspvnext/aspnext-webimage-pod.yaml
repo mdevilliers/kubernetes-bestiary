@@ -1,10 +1,8 @@
-apiVersion: v1beta1
+apiVersion: v1
 kind: Pod
-id: aspvnext-image
-desiredState:
-  manifest:
-    version: v1beta1
-    id: aspvnext-image
-    containers:
-      - name: aspvnext-image
-        image: mdevilliers/aspvnext-image:latest
+metadata:
+  name: aspvnext-image
+spec:
+  containers:
+   - name: aspvnext-image
+     image: mdevilliers/aspvnext-image:latest
