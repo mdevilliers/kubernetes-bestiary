@@ -16,9 +16,9 @@ docker push mdevilliers/rolling-update-web-image:v2
 Run in kubernentes
 
 ```
-kubectl create -f rolling-update-controller-v1.json
-kubectl create -f rolling-update-service.json
+kubectl create -f rolling-update-controller-v1.yaml
+kubectl create -f rolling-update-service.yaml
 
-kubectl rollingupdate rolling-update-v1 -f rolling-update-controller-v2.json  --update-period=10s
+kubectl rollingupdate rolling-update-v1 -f rolling-update-controller-v2.yaml  --update-period=10s
 
 ```

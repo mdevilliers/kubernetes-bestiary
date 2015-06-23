@@ -10,7 +10,7 @@ docker push mdevilliers/secrets-web-image
 Run in kubernentes
 
 ```
-kubectl create -f secret.json
-kubectl create -f secret-pod.json
+kubectl create -f secret.yaml
+kubectl create -f secret-pod.yaml
 
 ```
