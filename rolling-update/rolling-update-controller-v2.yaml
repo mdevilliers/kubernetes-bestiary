@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ReplicationController
+metadata: 
+  name: rolling-update-v2
+spec: 
+  replicas: 3
+  selector: 
+    name: rolling-update
+    version: "2"
+  template: 
+    metadata: 
+      labels: 
+        name: rolling-update
+        version: "2"
+    spec: 
+      containers: 
+        - name: rolling-update
+          image: mdevilliers/rolling-update-web-image:v2
