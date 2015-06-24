@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: rabbitmq
+  name: rabbitmq-controller
+spec:
+  replicas: 1
+  selector:
+    component: rabbitmq-controller
+  template:
+    metadata:
+      labels:
+        component: rabbitmq-controller
+    spec:
+      containers:
+      - image: mdevilliers/rabbitmq-controller-image:latest
+        name: rabbitmq
+        ports:
+        - port:
+          containerPort: 5672
+          hostPort: 5672
+        - port:
+          containerPort: 15672
+          hostPort: 15672
+        resources:
+          limits:
+            cpu: 100m

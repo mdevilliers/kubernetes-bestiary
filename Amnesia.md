@@ -27,3 +27,18 @@ debug a failed build
 
 docker run --rm -it {{id}} bash -il
 
+run with ability to detach
+
+docker run -i -t  {{tag}}
+
+Detach with Shift-P, Shift-Q
+
+clean all untagged images
+
+docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")
+
+
+kubernentes
+-----------
+
+cadvisor port 4194
