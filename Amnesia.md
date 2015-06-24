@@ -15,12 +15,15 @@ docker
 attach to running container
 
 ```
-docker exec -i -t 665b4a1e17b6 bash #by ID
+docker exec -i -t {{id}} bash #by ID
 ```
 or 
 
 ```
-docker exec -i -t loving_heisenberg bash #by Name
+docker exec -i -t {{tag}} bash #by Name
 ```
 
+debug a failed build
+
+docker run --rm -it {{id}} bash -il
 

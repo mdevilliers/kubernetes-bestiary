@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ReplicationController
+metadata: 
+  labels: 
+    name: aspvnext-console-demo
+  name: aspvnext-console-demo
+spec: 
+  replicas: 3
+  selector: 
+    name: aspvnext-console
+  template: 
+    metadata: 
+      labels: 
+        name: aspvnext-console
+    spec: 
+      containers: 
+        - name: aspvnext-console
+          image: mdevilliers/aspvnext-console-app:latest
