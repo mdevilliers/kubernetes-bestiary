@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: aspvnext-image
-spec:
-  containers:
-   - name: aspvnext-image
-     image: mdevilliers/aspvnext-image:latest

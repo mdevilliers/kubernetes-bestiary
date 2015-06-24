@@ -10,4 +10,4 @@ COPY . /app
 
 EXPOSE 5004
 
-ENTRYPOINT ["dnx", "project.json", "kestrel"]
+ENTRYPOINT sleep 9999999999 | dnx project.json kestrel
