@@ -11,6 +11,7 @@ Run in kubernentes
 
 ```
 kubectl create -f secret.yaml
-kubectl create -f secret-pod.yaml
+kubectl create -f secret-pod-controller.yaml
+kubectl create -f secret-pod-service.yaml
 
 ```
