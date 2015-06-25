@@ -3,9 +3,7 @@ kind: Service
 metadata: 
   labels: 
     name: service-one
-    expose/public: "true"
-    expose/type: "HTTP"
-    expose/uri: "/api/myservice1"
+    external/public: true
   name: service-one
 spec: 
   ports:
