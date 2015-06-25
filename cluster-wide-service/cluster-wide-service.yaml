@@ -12,3 +12,4 @@ spec:
   selector: 
     name: cluster-wide-service
     kubernetes.io/cluster-service: "true"
+  type : NodePort 

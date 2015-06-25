@@ -12,3 +12,4 @@ spec:
   selector: 
     name: rolling-update
   createExternalLoadBalancer : true
+  type : NodePort 
