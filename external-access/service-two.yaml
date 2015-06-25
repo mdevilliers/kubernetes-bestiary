@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  labels: 
+    name: service-two
+    expose/public: "true"
+    expose/type: "HTTP"
+    expose/uri: "/myservice2"
+  name: service-two
+spec: 
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol : TCP
+  selector: 
+    name: service-two-node
+  createExternalLoadBalancer : true  
