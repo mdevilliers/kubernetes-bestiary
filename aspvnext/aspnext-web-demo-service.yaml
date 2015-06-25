@@ -11,4 +11,4 @@ spec:
       protocol : TCP
   selector: 
     name: aspvnext
-  createExternalLoadBalancer : true  
+  type : NodePort 
