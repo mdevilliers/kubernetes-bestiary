@@ -3,7 +3,7 @@ kind: Service
 metadata: 
   labels: 
     name: service-two
-    external/public: true
+    external/public: "true"
   name: service-two
 spec: 
   ports:
