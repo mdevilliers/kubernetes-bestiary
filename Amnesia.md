@@ -42,3 +42,15 @@ kubernentes
 -----------
 
 cadvisor port 4194
+
+kube-proxy
+----------
+
+to view logs
+
+journalctl --unit kube-proxy | head
+
+to view args
+ 
+cat /etc/sysconfig/kube-proxy
+
