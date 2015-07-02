@@ -1,4 +1,4 @@
-FROM microsoft/aspnet
+FROM microsoft/aspnet:1.0.0-beta5
 
 COPY project.json /app/
 
@@ -10,4 +10,4 @@ COPY . /app
 
 EXPOSE 5004
 
-ENTRYPOINT sleep 9999999999 | dnx project.json kestrel
+ENTRYPOINT dnx project.json kestrel
