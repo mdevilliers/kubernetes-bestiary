@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ReplicationController
+metadata: 
+  labels: 
+    name: sidecar-demo
+  name: sidecar-demo
+spec: 
+  replicas: 1
+  selector: 
+    name: sidecar
+  template: 
+    metadata: 
+      labels: 
+        name: sidecar
+    spec: 
+      containers: 
+        - name: static-web-server
+          image: mdevilliers/static-web-server-image:latest
+          volumeMounts:
+            - mountPath: /etc/static
+              name: static
+              readOnly: true
+        - name: content-provider-sidecar
+          image: mdevilliers/content-provider-sidecar-image:latest
+          volumeMounts:
+            - mountPath: /etc/static
+              name: static
+      volumes:
+      - name: static
+        emptyDir : {}
