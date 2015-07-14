@@ -1,19 +1,29 @@
 package main
 
 import (
-	server "github.com/docker/go-redis-server"
+	"errors"
+	"github.com/GoogleCloudPlatform/kubernetes/pkg/api"
+	"github.com/GoogleCloudPlatform/kubernetes/pkg/client"
+	"github.com/GoogleCloudPlatform/kubernetes/pkg/fields"
+	"github.com/GoogleCloudPlatform/kubernetes/pkg/labels"
+	redisserver "github.com/docker/go-redis-server"
 	rediscli "github.com/garyburd/redigo/redis"
 	"github.com/serialx/hashring"
 	"log"
 )
 
 type MyHandler struct {
-	values map[string][]byte
+	redisserver.DefaultHandler
 }
 
-func (h *MyHandler) GET(key string) ([]byte, error) {
+func (h *MyHandler) Get(key string) ([]byte, error) {
 
-	node := locateNodeFromKey(key)
+	node, err := locateNodeFromKey(key)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	log.Printf("GET : Key : %s Node : %s", node, key)
 
 	conn, err := rediscli.Dial("tcp", node)
@@ -32,9 +42,14 @@ func (h *MyHandler) GET(key string) ([]byte, error) {
 	return v, nil
 }
 
-func (h *MyHandler) SET(key string, value []byte) error {
+func (h *MyHandler) Set(key string, value []byte) error {
 
-	node := locateNodeFromKey(key)
+	node, err := locateNodeFromKey(key)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	log.Printf("SET : Key : %s Node : %s", node, key)
 
 	conn, err := rediscli.Dial("tcp", node)
@@ -44,31 +59,74 @@ func (h *MyHandler) SET(key string, value []byte) error {
 	defer conn.Close()
 
 	if _, err = conn.Do("SET", key, value); err != nil {
-		log.Printf(err.Error())
+		log.Print(err.Error())
 		return err
 	}
 
 	return nil
 }
 
-func locateNodeFromKey(key string) string {
+func locateNodeFromKey(key string) (string, error) {
 
-	servers := getRedisServers()
+	servers, err := getRedisServers()
+
+	if err != nil {
+		return "", err
+	}
 
 	ring := hashring.New(servers)
-	server, _ := ring.GetNode(key)
-	return server
+	server, ok := ring.GetNode(key)
+
+	if !ok {
+		return "", errors.New("Cannot locate node.")
+	}
+
+	return server, nil
 }
 
-func getRedisServers() []string {
-	// TODO call into kubernetess
-	return []string{"192.168.0.246:6379",
-		"192.168.0.247:6379",
-		"192.168.0.249:6379"}
+func getRedisServers() ([]string, error) {
+
+	config, err := client.InClusterConfig()
+	nodes := []string{}
+
+	if err != nil {
+		return nodes, err
+	}
+
+	client, err := client.New(config)
+	if err != nil {
+		return nodes, err
+	}
+
+	labels, err := labels.Parse("name=redis-node")
+
+	if err != nil {
+		return nodes, err
+	}
+
+	podList, err := client.Pods(api.NamespaceDefault).List(labels, fields.Everything())
+
+	if err != nil {
+		return nodes, err
+	}
+
+	for _, pod := range podList.Items {
+
+		address := pod.Status.PodIP
+		log.Printf(address)
+		nodes = append(nodes, address+":6379")
+	}
+
+	return nodes, nil
 }
 
 func main() {
-	handler, _ := server.NewAutoHandler(&MyHandler{values: make(map[string][]byte)})
-	server := &server.Server{Handler: handler, Addr: ":6379"}
-	server.ListenAndServe()
+
+	srv, err := redisserver.NewServer(redisserver.DefaultConfig().Port(6379).Handler(&MyHandler{}))
+	if err != nil {
+		log.Panic(err)
+	}
+	if err := srv.ListenAndServe(); err != nil {
+		log.Panic(err)
+	}
 }
