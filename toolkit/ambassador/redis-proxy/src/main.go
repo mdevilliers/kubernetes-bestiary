@@ -113,7 +113,7 @@ func getRedisServers() ([]string, error) {
 	for _, pod := range podList.Items {
 
 		address := pod.Status.PodIP
-		log.Printf(address)
+		log.Print(address)
 		nodes = append(nodes, address+":6379")
 	}
 

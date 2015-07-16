@@ -14,5 +14,7 @@ spec:
         name: ambassador
     spec: 
       containers: 
+        - name: web-app
+          image: mdevilliers/web-app-ambassador-image:latest
         - name: redis-proxy-ambassador
           image: mdevilliers/redis-proxy-ambassador-image:latest
