@@ -12,5 +12,4 @@ spec:
       protocol : TCP
   selector: 
     name: service-one-node
-  createExternalLoadBalancer : true
-  type : LoadBalancer
+  type : NodePort
