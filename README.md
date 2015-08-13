@@ -9,7 +9,7 @@ Project               | Description
 aspvnext              | Run .net application in docker on Kubernetes
 cluster-wide-service  | Example using the selector name: cluster-wide-service
 external-access       | Example using the external/public: "true" for access by HAProxy
-ip-test               | Example showing all pods containser have the same ip address
+ip-test               | Example showing all containers in a pod have the same ip address
 lifecycle             | Example showing lifecycle callbacks
 rolling-update        | Rolling update example
 secret                | Secret example
