@@ -3,8 +3,9 @@
 Experiments and POCs on Kubernetes
 ----------------------------------
 
+
 Project               | Description
-----------------------------------------------------------------------------------------------------------------------------
+----------------------|-----------------------------------------------------------------------------------------------------
 aspvnext              | Run .net application in docker on Kubernetes
 cluster-wide-service  | Example using the selector name: cluster-wide-service
 external-access       | Example using the external/public: "true" for access by HAProxy
