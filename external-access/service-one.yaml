@@ -6,7 +6,7 @@ metadata:
   annotations:
     external/public : true
     external/name : service-one
-    external/port : 8080
+    external/port : "8080"
     external/ytpe : http
     external/uri : /path1/child/
   name: service-one
