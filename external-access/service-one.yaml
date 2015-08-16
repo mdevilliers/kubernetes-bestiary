@@ -3,8 +3,8 @@ kind: Service
 metadata: 
   labels: 
     name: service-one
-  annotations:
     external/public : "true"
+  annotations:
     external/name : service-one
     external/port : "8080"
     external/ytpe : http
