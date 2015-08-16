@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ReplicationController
+metadata: 
+  labels: 
+    name: lifecycle-demo
+  name: lifecycle-demo
+spec: 
+  replicas: 2
+  selector: 
+    name: lifecycle
+  template: 
+    metadata: 
+      labels: 
+        name: lifecycle
+    spec: 
+      containers: 
+        - name: web-app
+          image: mdevilliers/lifecycle-image:latest
+          lifecycle : 
+              postStart:
+                    httpGet:
+                       path : /lifecycle/poststart
+                       port : 8080
+              preStop:
+                    httpGet:
+                       path : /lifecycle/prestop
+                       port : 8080

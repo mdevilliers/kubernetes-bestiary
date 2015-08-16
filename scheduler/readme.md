@@ -34,9 +34,11 @@ scheduleOne() {
 
 s.config.Algorithm implements ScheduleAlgorithm interface
 
+```
 type ScheduleAlgorithm interface {
 	Schedule(*api.Pod, MinionLister) (selectedMachine string, err error)
 }
+```
 
 implementation is the generic_scheduler.go which wires up various predicate and prorities implementations
 
