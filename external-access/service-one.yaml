@@ -3,7 +3,12 @@ kind: Service
 metadata: 
   labels: 
     name: service-one
-    external/public: "true"
+  annotations:
+    external/public : true
+    external/name : service-one
+    external/port : 8080
+    external/ytpe : http
+    external/uri : /path1/child/
   name: service-one
 spec: 
   ports:
