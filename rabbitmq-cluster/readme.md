@@ -16,6 +16,7 @@ rabbitmq-node-two-svc    | 4369     | name: rmq-node-2 | epmd port for distrubut
                          | 25672    |                  | rpc port for distrubuted erlang
 rabbitmq-node-two-svc-ui | 15672    | name: rmq-node-2 | port for the managment ui                          
 
+
 Replication Controllers
 -----------------------
 
