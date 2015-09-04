@@ -12,12 +12,12 @@ spec:
         name: rmq-node-2
         type: rmq-node
     spec: 
-      containers: 
+      containers:
         - name: rmq
           image: rabbitmq:3.5.4-management
           env: 
             - name: RABBITMQ_ERLANG_COOKIE
-              value: 'secret cookie here'
+              value: 'secretcookiehere'
             - name : RABBITMQ_DEFAULT_USER
               value : user 
             - name : RABBITMQ_DEFAULT_PASS

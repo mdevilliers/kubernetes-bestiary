@@ -12,12 +12,23 @@ spec:
         name: rmq-node-1
         type: rmq-node
     spec: 
-      containers: 
+      containers:
+        - name: rmq-sidecar
+          image: mdevilliers/rabbitmq-sidecar:latest
+          env:
+              - name: RABBITMQ_ERLANG_COOKIE
+                value: 'secretcookiehere'
+              - name: RABBITMQ_NODE_TO_COMMAND
+                value: rabbit@rmq-node-1-svc
+              - name: RABBITMQ_NODE_TO_CLUSTER_WITH
+                value: rabbit@rmq-node-2-svc
+              - name : HOSTNAME
+                value : rmq-node-1-svc  
         - name: rmq
           image: rabbitmq:3.5.4-management
           env: 
             - name: RABBITMQ_ERLANG_COOKIE
-              value: 'secret cookie here'
+              value: 'secretcookiehere'
             - name : RABBITMQ_DEFAULT_USER
               value : user 
             - name : RABBITMQ_DEFAULT_PASS
