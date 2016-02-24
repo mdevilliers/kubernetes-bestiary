@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  labels: 
+    name: teamcity
+  name: teamcity
+spec: 
+  ports:
+    - port: 8111
+      targetPort: 8111
+      protocol : TCP
+  selector: 
+    name: teamcity
+  type : NodePort 

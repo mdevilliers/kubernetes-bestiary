@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: teamcity-agent
+spec:
+  replicas: 3
+  selector:
+    name: teamcity-agent
+  template:
+    metadata:
+      labels:
+        name: teamcity-agent
+    spec:
+      containers:
+            - image: smallimprovements/teamcity-agent-docker
+              imagePullPolicy: Always
+              name: teamcity
+              env:
+                - name: TEAMCITY_SERVER
+                  value: http://10.244.32.2:8111
+              volumeMounts:
+                - name:  agent-data
+                  mountPath: /data
+      volumes:
+        - name: agent-data
+          emptyDir: {}
