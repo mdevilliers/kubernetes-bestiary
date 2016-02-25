@@ -17,7 +17,7 @@ spec:
               name: teamcity
               env:
                 - name: TEAMCITY_SERVER
-                  value: http://10.244.32.2:8111
+                  value: http://teamcity.default.svc.cluster.local:8111
               volumeMounts:
                 - name:  agent-data
                   mountPath: /data
